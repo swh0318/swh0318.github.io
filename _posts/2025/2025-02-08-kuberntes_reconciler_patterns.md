@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "【庖丁解牛】一文读透kubernetes controller编写要点"
+title: "[庖丁解牛]一文读透kubernetes controller编写要点"
 date:   2025-02-08
 tags: [kubernetes, controller, 庖丁解牛]
 comments: false
