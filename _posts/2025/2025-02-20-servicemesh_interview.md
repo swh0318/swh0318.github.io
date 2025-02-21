@@ -250,29 +250,9 @@ istioctl proxy-config all
 [参考文档3](https://www.envoyproxy.io/docs/envoy/latest/configuration/observability/access_log/usage)
 [参考文档4](https://istio.io/latest/docs/tasks/observability/logs/access-log/#default-access-log-format)
 
-nicolaka/netshoot
+# 3、
 
-# 3、istio常见的资源及其使用
-- VirtualService
-```
-```
 
-- DestinatioRule
-```
-```
-
-- ServicEntry
-```
-```
-- Gateway
-```
-```
-- AuthorizationPolicy
-```
-```
-- EnvoyFilter
-```
-```
 
 
 
