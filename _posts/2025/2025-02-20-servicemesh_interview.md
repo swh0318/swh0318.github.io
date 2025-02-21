@@ -131,12 +131,126 @@ Istio 提供了两种网关，用于管理进出服务网格的流量。
   - 不再单独部署。
 
 # 2、istio如何部署？
+- 安装istioctl: https://github.com/istio/istio/releases, 选择版本，下载解压，将bin目录加入到环境变量
+- Pilot控制面镜像：istio/pilot包含 Istio 控制平面的核心组件之一，它包含了 Pilot 服务及其依赖的工具和库。Pilot 是 Istio 的服务发现、流量管理和配置分发的核心组件
+- Envoy数据面镜像：istio/proxyv2它包含了 Envoy 代理 和 Istio 扩展组件，用于实现 Istio 的数据平面功能 
+- 安装IstioOperator: 可以安装IstioOperator，通过IstioOperator来安装Istio
+```
+apiVersion: install.istio.io/v1alpha1
+kind: IstioOperator
+metadata:
+  namespace: istio-system
+  name: example-istiocontrolplane
+spec:
+  profile: default
+  components:
+    # 配置 Pilot
+    pilot:
+      enabled: true
+      k8s:
+        resources:
+          requests:
+            cpu: 500m
+            memory: 1Gi
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 30
+        replicaCount: 2
+        nodeSelector:
+          istio: pilot
+        tolerations:
+        - key: "critical-pilot"
+          operator: "Exists"
+          effect: "NoSchedule"
 
-镜像：pilot  proxyv2(ingressgateway)
+    # 配置 Ingress Gateway
+    ingressGateways:
+    - name: istio-ingressgateway
+      enabled: true
+      k8s:
+        service:
+          type: LoadBalancer
+          ports:
+          - port: 80
+            targetPort: 8080
+            name: http2
+          - port: 443
+            targetPort: 8443
+            name: https
+        resources:
+          requests:
+            cpu: 200m
+            memory: 512Mi
+        replicaCount: 2
+        nodeSelector:
+          istio: ingressgateway
+        tolerations:
+        - key: "critical-ingress"
+          operator: "Exists"
+          effect: "NoSchedule"
 
+    # 配置 Egress Gateway
+    egressGateways:
+    - name: istio-egressgateway
+      enabled: true
+      k8s:
+        resources:
+          requests:
+            cpu: 200m
+            memory: 512Mi
+        replicaCount: 1
+        nodeSelector:
+          istio: egressgateway
+        tolerations:
+        - key: "critical-egress"
+          operator: "Exists"
+          effect: "NoSchedule"
 
+  # 全局配置
+  values:
+    global:
+      # 控制平面命名空间
+      istioNamespace: istio-system
+      # 启用自动 Sidecar 注入
+      autoInject: enabled
+      # 启用 mTLS
+      mtls:
+        enabled: true
+      # 日志级别
+      logging:
+        level: "default:info"
+      # 资源限制
+      resources:
+        requests:
+          cpu: 100m
+          memory: 128Mi
+      # 节点选择器和容忍
+      nodeSelector:
+        istio: controlplane
+      tolerations:
+      - key: "critical-addons"
+        operator: "Exists"
+        effect: "NoSchedule"
+```
+- 安装：$ istioctl install -f config.yml -y
+- 将istio-system namespace下的configmap导入到istio-gateway namespace下, 供gateway读取配置
+- 启用sidecar注入: $ kubectl label namespace default istio-injection=enabled; kubectl label namespace default istio.io/rev=1-24-6
+- 对deployment启动sidecar注入
+- 开启deployment的日志级别为debug
+```
+istioctl tag set default --revision
+istioctl install -f operator.yml -y
+istioctl proxy-config all
+```
+[参考文档1](https://istio.io/latest/docs/setup/getting-started/)
+[参考文档2](https://istio.io/latest/docs/reference/config/annotations)
+[参考文档3](https://www.envoyproxy.io/docs/envoy/latest/configuration/observability/access_log/usage)
+[参考文档4](https://istio.io/latest/docs/tasks/observability/logs/access-log/#default-access-log-format)
 
-
+nicolaka/netshoot
 
 # 3、istio常见的资源及其使用
 - VirtualService
