@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "[每日一库]点赞系统设计要点"
+title: "[每日一文]点赞系统设计要点"
 date: 2025-02-14
-tags: [系统设计,每日一库]
+tags: [系统设计,每日一文]
 comments: false
 author: 小辣条
 toc : false

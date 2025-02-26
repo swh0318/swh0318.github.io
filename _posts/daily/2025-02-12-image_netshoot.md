@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "[每日一库]Kubernetes网络问题排查镜像netshoot"
+title: "[每日一文]Kubernetes网络问题排查镜像netshoot"
 date: 2025-02-12
-tags: [网络排查,每日一库]
+tags: [网络排查,每日一文]
 comments: false
 author: 小辣条
 toc : false

@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "[每日一库]Linux OOM Killer机制"
+title: "[每日一文]Linux OOM Killer机制"
 date: 2025-02-13
-tags: [Linux,每日一库]
+tags: [Linux,每日一文]
 comments: false
 author: 小辣条
 toc : false

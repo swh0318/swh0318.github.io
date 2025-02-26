@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "[每日一库]Go语言包之controller-runtime"
+title: "[每日一文]Go语言包之controller-runtime"
 date:   2025-02-11
-tags: [go,每日一库]
+tags: [go,每日一文]
 comments: false
 author: 小辣条
 toc : false
