@@ -7,7 +7,7 @@ comments: false
 author: 小辣条
 toc : false
 ---
-在react中，父组件如何触发子组件的提交操作？本文进行简单的介绍。
+在react中，父组件如何触发子组件的提交操作？父组件想获取到子组件的内容或变动情况？本文进行简单的介绍。
 <!-- more -->
 
 # 1、父组件如何触发子组件的提交操作？
@@ -100,6 +100,7 @@ class ParentComponent extends React.Component {
     );
   }
 }
+```
 
 ---
 ### 保持好奇，勇敢打破边界，做永远不被定义的人，祝你快乐❤️
