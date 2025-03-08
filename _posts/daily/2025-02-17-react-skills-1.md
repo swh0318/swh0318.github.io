@@ -2,7 +2,7 @@
 layout: post
 title: "[每日一文]前端组件使用小技巧：组件状态提升和父组件状态感知"
 date: 2025-02-17
-tags: [react, vue]
+tags: [react, 前端]
 comments: false
 author: 小辣条
 toc : false
