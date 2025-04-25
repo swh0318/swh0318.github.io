@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "[庖丁解牛]React系列(一)：状态管理工具mobx-react库的使用"
+title: "[庖丁解牛]React系列(二)：状态管理工具mobx-react库的使用"
 date: 2025-02-25
 tags: [react, 前端]
 comments: false
