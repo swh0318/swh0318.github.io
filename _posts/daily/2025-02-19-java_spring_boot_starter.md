@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "[每日一文]"
+title: "[每日一文]如何编写一个SpringBoot Starter"
 date: 2025-02-19
 tags: [java]
 comments: false
